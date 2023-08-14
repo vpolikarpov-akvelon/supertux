@@ -59,6 +59,9 @@ jobs:
           sudo mv /Library/Frameworks/Mono.framework                           \
                   /Library/Frameworks/Mono.framework-disabled
 
+      - name: Locate libglib
+        run: locate libglib-2.0.dylib
+
       - name: Set compiler
         run: |
           # This ensures for now we use clang11
