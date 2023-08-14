@@ -60,7 +60,7 @@ jobs:
                   /Library/Frameworks/Mono.framework-disabled
 
       - name: Locate libglib
-        run: locate libglib-2.0.dylib
+        run: sudo find / -name libglib-2.0.dylib
 
       - name: Set compiler
         run: |
