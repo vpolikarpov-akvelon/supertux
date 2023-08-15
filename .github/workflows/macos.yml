@@ -48,10 +48,19 @@ jobs:
           fetch-depth: 0
           submodules: true
 
+      - name: Install cmake 3.26.4
+        if: ${{ matrix.os == 'macos-11' }}
+        run: |
+          PKG_NAME=cmake
+          FORMULA_COMMIT=4e0b3fe22b12fe66a5881d6948ee71198aa37834
+          FORMULA_URL="https://raw.githubusercontent.com/Homebrew/homebrew-core/${FORMULA_COMMIT}/Formula/${PKG_NAME}.rb"
+          curl -fsSL "$FORMULA_URL" > $(find $(brew --repository) -name "${PKG_NAME}.rb")
+          HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_FROM_API=1 brew install "${PKG_NAME}"
+
       - name: Install macos dependencies
         if: ${{ matrix.os == 'macos-11' }}
         run: |
-          brew install cmake googletest bash rename libogg libvorbis glew\
+          brew install googletest bash rename libogg libvorbis glew\
                        openal-soft sdl2 sdl2_image sdl2_ttf freetype harfbuzz  \
                        fribidi glib gtk-doc glbinding libraqm glm zlib
 
