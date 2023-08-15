@@ -55,9 +55,9 @@ jobs:
                        openal-soft sdl2 sdl2_image sdl2_ttf freetype harfbuzz  \
                        fribidi glib gtk-doc glbinding libraqm glm zlib
 
-      - name: Locate libglib
-        run: |
-          ls -lA /usr/local/lib/
+          # Something funky happens with freetype if mono is left
+          sudo mv /Library/Frameworks/Mono.framework                           \
+                  /Library/Frameworks/Mono.framework-disabled
 
       - name: Set compiler
         run: |
