@@ -59,16 +59,23 @@ jobs:
           sudo mv /Library/Frameworks/Mono.framework                           \
                   /Library/Frameworks/Mono.framework-disabled
 
-      - name: Install cmake 3.26.4
+      - name: Install old formulae
         if: ${{ matrix.os == 'macos-11' }}
         run: |
-          PKG_NAME=cmake
-          brew uninstall "${PKG_NAME}"
-          FORMULA_COMMIT=4e0b3fe22b12fe66a5881d6948ee71198aa37834
-          FORMULA_URL="https://raw.githubusercontent.com/Homebrew/homebrew-core/${FORMULA_COMMIT}/Formula/${PKG_NAME}.rb"
-          FORMULA_FILE=$(find $(brew --repository) -path "*/Formula/${PKG_NAME}.rb")
-          curl -fsSL "$FORMULA_URL" > "${FORMULA_FILE}"
-          HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_FROM_API=1 brew install "${PKG_NAME}"
+          function brew_install_old_formula {
+            PKG_NAME=$1
+            FORMULA_COMMIT=$2
+            brew uninstall "${PKG_NAME}" || true
+            FORMULA_URL="https://raw.githubusercontent.com/Homebrew/homebrew-core/${FORMULA_COMMIT}/Formula/${PKG_NAME}.rb"
+            FORMULA_FILE=$(find $(brew --repository) -path "*/Formula/${PKG_NAME}.rb")
+            curl -fsSL "$FORMULA_URL" > "${FORMULA_FILE}"
+            HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_FROM_API=1 brew install "${PKG_NAME}"
+          }
+
+          brew_install_old_formula cmake      4e0b3fe22b12fe66a5881d6948ee71198aa37834
+          brew_install_old_formula harfbuzz   beb314d142c6ba06c23c761699ebe6a96d0d9864
+          brew_install_old_formula googletest c3df14c9d6e05ec81029c0b1e2f3c3b9a7bd237b
+          brew_install_old_formula sdl2       c4b9f37be9c7500a1d3bce69324cf8dd21c00f8f
 
       - name: Set compiler
         run: |
