@@ -63,6 +63,7 @@ jobs:
         if: ${{ matrix.os == 'macos-11' }}
         run: |
           PKG_NAME=cmake
+          brew uninstall "${PKG_NAME}"
           FORMULA_COMMIT=4e0b3fe22b12fe66a5881d6948ee71198aa37834
           FORMULA_URL="https://raw.githubusercontent.com/Homebrew/homebrew-core/${FORMULA_COMMIT}/Formula/${PKG_NAME}.rb"
           FORMULA_FILE=$(find $(brew --repository) -path "*/Formula/${PKG_NAME}.rb")
