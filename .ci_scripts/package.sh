@@ -2,15 +2,21 @@
 
 shopt -s nullglob
 
+echo "=== cpack Bundle ==="
+
 if ([ "$OS_NAME" = "macos-10.15" ] || [ "$OS_NAME" = "macos-11" ]) && [ "$PACKAGE" = "ON" ]; then
     sudo chmod -R +w /usr/local/Cellar
-    cpack -G Bundle;
+    cpack --verbose -G Bundle;
 fi
+
+echo "=== cpack TGZ ==="
 
 # make only one source package
 if [ "$SOURCE" = "ON" ]; then
-    cpack --config CPackSourceConfig.cmake -G TGZ;
+    cpack --verbose --config CPackSourceConfig.cmake -G TGZ;
 fi
+
+echo "=== build_appimage ==="
 
 if ([ "$OS_NAME" = "ubuntu-20.04" ] || [ "$OS_NAME" = "ubuntu-18.04" ]) && [ "$PACKAGE" = "ON" ]; then
     ../.ci_scripts/build_appimage.sh
@@ -23,6 +29,8 @@ if ([ "$OS_NAME" = "ubuntu-20.04" ] || [ "$OS_NAME" = "ubuntu-18.04" ]) && [ "$P
         mv "$filename" "${filename//_2/}"
     done
 fi
+
+echo "=== mv SuperTux ==="
 
 mkdir upload
 mv SuperTux* upload/
