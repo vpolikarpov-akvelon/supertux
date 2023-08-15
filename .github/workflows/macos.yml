@@ -65,7 +65,7 @@ jobs:
           function brew_install_old_formula {
             PKG_NAME=$1
             FORMULA_COMMIT=$2
-            brew uninstall "${PKG_NAME}" || true
+            brew uninstall –ignore-dependencies "${PKG_NAME}" || true
             FORMULA_URL="https://raw.githubusercontent.com/Homebrew/homebrew-core/${FORMULA_COMMIT}/Formula/${PKG_NAME}.rb"
             FORMULA_FILE=$(find $(brew --repository) -path "*/Formula/${PKG_NAME}.rb")
             curl -fsSL "$FORMULA_URL" > "${FORMULA_FILE}"
