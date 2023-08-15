@@ -55,12 +55,14 @@ jobs:
                        openal-soft sdl2 sdl2_image sdl2_ttf freetype harfbuzz  \
                        fribidi glib gtk-doc glbinding libraqm glm zlib
 
-          # Something funky happens with freetype if mono is left
-          sudo mv /Library/Frameworks/Mono.framework                           \
-                  /Library/Frameworks/Mono.framework-disabled
-
       - name: Locate libglib
-        run: sudo find / -name libglib-2.0.dylib
+        run: |
+          ls -l /usr/local/lib/libglib-2.0.dylib
+          ls -l /usr/local/Cellar/glib/2.76.4/lib/libglib-2.0.dylib
+          ls -l /Library/Frameworks/Mono.framework/Versions/6.12.0/lib/libglib-2.0.dylib
+          ls -l /System/Volumes/Data/usr/local/lib/libglib-2.0.dylib
+          ls -l /System/Volumes/Data/usr/local/Cellar/glib/2.76.4/lib/libglib-2.0.dylib
+          ls -l /System/Volumes/Data/Library/Frameworks/Mono.framework-disabled/Versions/6.12.0/lib/libglib-2.0.dylib
 
       - name: Set compiler
         run: |
