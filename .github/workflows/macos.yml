@@ -72,9 +72,6 @@ jobs:
             HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_FROM_API=1 brew install "${PKG_NAME}"
           }
 
-          brew_install_old_formula cmake      4e0b3fe22b12fe66a5881d6948ee71198aa37834
-          brew_install_old_formula harfbuzz   beb314d142c6ba06c23c761699ebe6a96d0d9864
-          brew_install_old_formula googletest c3df14c9d6e05ec81029c0b1e2f3c3b9a7bd237b
           brew_install_old_formula sdl2       c4b9f37be9c7500a1d3bce69324cf8dd21c00f8f
 
       - name: Set compiler
