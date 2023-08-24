@@ -19,7 +19,7 @@ name: MacOS
 on:
   push:
     branches:
-      - master
+      - homebrew-relocatable-install-names
     tags:
       - '*'
   pull_request: {}
@@ -49,6 +49,8 @@ jobs:
 
       - name: Install macos dependencies
         if: ${{ matrix.os == 'macos-11' }}
+        env:
+          HOMEBREW_RELOCATABLE_INSTALL_NAMES: 1
         run: |
           # See https://github.com/orgs/Homebrew/discussions/4735
           # and https://github.com/actions/runner-images/issues/8078
